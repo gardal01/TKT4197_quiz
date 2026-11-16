@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#080e1b" />
+  <meta name="description" content="TKT4197 mobile study quizzes based on NTNU course lectures, exercises and previous exams." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="TKT4197 Quiz" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" type="image/png" href="icon-192.png" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>TKT4197 · Study Lab</title>
+  <script>window.MathJax={tex:{inlineMath:[['\\(','\\)'],['$','$']],displayMath:[['\\[','\\]']]},startup:{typeset:false}};</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" onload="window.onMathReady&&window.onMathReady()"></script>
+  <script defer src="questions.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="shell topbar"><div class="brand"><span class="mark" aria-hidden="true">∑</span><span>TKT4197 <small>NONLINEAR FEA · STUDY LAB</small></span></div><div class="utility"><span class="statusdot"></span><span>Progress saved on this device</span></div></header>
+  <main id="home" class="shell main">
+    <div class="intro"><div class="eyebrow">A better way to revise</div><h1>Nonlinear FE.<br />Small sessions. Real progress.</h1><p class="lede">347 questions from your NTNU lectures, exercises and past exams. Tap an answer, see why it's right, and review what you missed.</p></div>
+    <div class="stats" id="stats"><div class="stat"><div class="caption">Questions attempted</div><div class="stat-num" id="stat-seen">0</div><small>of 347</small></div><div class="stat"><div class="caption">Overall accuracy</div><div class="stat-num" id="stat-accuracy">—</div><small>across your attempts</small></div><div class="stat"><div class="caption">Need review</div><div class="stat-num" id="stat-missed">0</div><small>latest answer incorrect</small></div><div class="stat"><div class="caption">Questions due</div><div class="stat-num" id="stat-due">0</div><small>scheduled for review</small></div></div>
+    <div class="content-layout"><section class="panel"><h2>Start a session</h2><p class="panel-sub">Choose your format. Your progress is saved automatically.</p>
+      <div class="field"><span class="field-label">QUESTION TYPE</span><div class="segment" id="mode-pick"><button class="seg active" data-mode="mixed" type="button">Mixed</button><button class="seg" data-mode="mc" type="button">Multiple choice</button><button class="seg" data-mode="recall" type="button">Recall</button></div><p class="hint" id="mode-help">Mixed: 80% multiple choice + 20% active recall.</p></div>
+      <div class="field"><span class="field-label">QUESTIONS PER SESSION</span><div class="segment length" id="length-pick"><button class="seg" data-len="5" type="button">5</button><button class="seg active" data-len="10" type="button">10</button><button class="seg" data-len="20" type="button">20</button><button class="seg" data-len="all" type="button">All</button></div></div>
+      <div class="field"><label class="field-label" for="topic-pick">TOPIC</label><select class="select" id="topic-pick"><option value="all">All curriculum · 347 questions</option></select></div>
+      <div class="field"><span class="field-label">PRACTICE FOCUS</span><div class="pill-group" id="focus-pick"><button class="pill active" data-focus="smart" type="button">Smart mix</button><button class="pill" data-focus="missed" type="button">Mistakes</button><button class="pill" data-focus="new" type="button">Unseen</button><button class="pill" data-focus="due" type="button">Due reviews</button></div></div>
+      <div class="action"><button class="primary full" id="start" type="button">Start quiz <span aria-hidden="true">→</span></button><div class="hint" id="availability" role="status"></div></div>
+    </section>
+    <aside class="panel"><h2>How it works</h2><p class="panel-sub">Designed for quick practice between lectures.</p><div class="mini-list">
+      <div class="mini-item"><span class="mini-icon">01</span><div class="mini-text">Answer in one tap<small>Four options, immediate feedback, and the complete original explanation.</small></div></div>
+      <div class="mini-item"><span class="mini-icon">02</span><div class="mini-text">Understand the reason<small>Each answer includes its lecture, exercise, or exam reference.</small></div></div>
+      <div class="mini-item"><span class="mini-icon">03</span><div class="mini-text">Repeat what matters<small>Missed questions return for practice; correct answers are scheduled later.</small></div></div>
+      <div class="mini-item"><span class="mini-icon">04</span><div class="mini-text">Keep active recall<small>Mixed sessions include short-answer questions, not just recognition.</small></div></div>
+    </div><hr class="small-divider" /><h3>Your data</h3><p class="privacy">Progress stays in this browser, including on your phone. It does not sync between devices. Export a backup to move it to another device.</p><div class="small-actions" style="margin-top:14px"><button class="small-button" type="button" id="export-progress">Export backup</button><button class="small-button" type="button" id="import-progress">Import backup</button><input type="file" id="import-file" accept="application/json,.json" hidden /><button class="small-button" id="reset-progress" type="button">Reset progress</button></div></aside></div>
+    <section class="topics-section"><div class="section-heading"><div><h2>Topics</h2><p class="panel-sub">Tap a topic to practice just that part of the syllabus.</p></div><span class="caption">13 collections</span></div><div class="topics" id="topics"></div></section>
+  </main>
+  <main id="quiz" class="quiz-shell hidden" aria-live="polite"><div class="quiz-top"><button class="back" id="quit" type="button">← Exit quiz</button><span class="qmeta" id="quiz-count">Question 1 of 10</span></div><div class="q-progress"><span id="quiz-progress" style="width:0%"></span></div><div class="q-box"><div class="q-tag" id="quiz-tag"></div><h2 class="question" id="question"></h2><p class="q-sub" id="quiz-instruction"></p></div><div id="answer-area"></div><div id="feedback" class="feedback hidden"></div><div class="quiz-nav"><button class="primary hidden" id="next" type="button">Next question →</button></div></main>
+  <main id="results" class="quiz-shell hidden"><section class="results"><div class="results-icon">✓</div><h1>Session complete.</h1><p id="result-copy"></p><div class="result-cards"><div class="result-card"><b id="result-correct">0</b><span>Correct</span></div><div class="result-card"><b id="result-total">0</b><span>Answered</span></div><div class="result-card"><b id="result-rate">0%</b><span>Accuracy</span></div></div><div class="result-actions"><button class="primary" id="repeat" type="button">Another session</button><button class="secondary" id="review-session" type="button">Review mistakes</button></div><div class="mistakes-list" id="result-mistakes"></div></section></main>
+  <footer class="shell footer"><span>Independent revision tool for TKT4197 · NTNU</span><span>Based on your uploaded study materials · No account required</span></footer>
+  <div role="status" class="toast hidden" id="toast"></div>
+</body>
+</html>
